@@ -7,29 +7,60 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
+
+  <!-- ================= MÀN HÌNH ĐĂNG NHẬP ================= -->
+  <div id="loginScreen" class="login-container" style="display: none;">
+    <div class="login-box">
+      <h2>🔐 Cấp Quyền Truy Cập</h2>
+      <p style="margin-bottom: 20px; color: #718096; font-size: 0.9rem;">Chọn thời hạn để tạo Key tự động.</p>
+      
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label>Thời hạn sử dụng</label>
+        <select id="durationSelect" class="input-field">
+          <option value="1d">1 Ngày</option>
+          <option value="2d">2 Ngày</option>
+          <option value="1m" selected>1 Tháng</option>
+          <option value="3m">3 Tháng</option>
+          <option value="5m">5 Tháng</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 25px;">
+        <label>Key của bạn (Tự động điền)</label>
+        <input type="text" id="loginKeyInput" class="input-field" placeholder="Bấm tạo Key bên dưới" />
+      </div>
+
+      <button id="generateKeyBtn" class="btn btn-secondary" style="width: 100%; margin-bottom: 10px; background:#fef3c7; color:#92400e;">📅 Tạo Key Ngay</button>
+      <button id="loginBtn" class="btn btn-primary" style="width: 100%;">Đăng Nhập</button>
+    </div>
+  </div>
+
+  <!-- ================= GIAO DIỆN CHÍNH ================= -->
+  <div class="container" id="mainApp" style="display: none;">
     <header class="header">
       <h1>👥 Quản Lý Users</h1>
-      <div class="status" id="status">
-        <span class="dot"></span>
-        <span id="statusText">Đang kiểm tra...</span>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <div class="status" id="status">
+          <span class="dot"></span>
+          <span id="statusText">Online</span>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.9rem;">Đăng xuất</button>
       </div>
     </header>
 
     <!-- Form thêm user -->
     <section class="card">
-      <h2>➕ Thêm User Mới</h2>
+      <h2>➕ Thêm User Mới (Upload Nhanh)</h2>
       <form id="userForm" class="form">
         <div class="form-group">
           <label for="name">Tên</label>
-          <input type="text" id="name" placeholder="Nguyen Van A" required />
+          <input type="text" id="name" class="input-field" placeholder="Nguyen Van A" required />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="a@example.com" required />
+          <input type="email" id="email" class="input-field" placeholder="a@example.com" required />
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" id="submitBtn" class="btn btn-primary">
           Thêm User
         </button>
       </form>
@@ -46,7 +77,6 @@
       </div>
     </section>
 
-    <!-- Toast thông báo -->
     <div id="toast" class="toast"></div>
   </div>
 
