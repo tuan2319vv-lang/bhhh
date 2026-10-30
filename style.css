@@ -1,323 +1,37 @@
-/* ===== Reset ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* ===== Màn hình Đăng Nhập ===== */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  padding: 40px 20px;
-  color: #333;
+  padding: 20px;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* ===== Header ===== */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.header h1 {
-  font-size: 2rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #fbbf24;
-  animation: pulse 1.5s infinite;
-}
-
-.dot.online {
-  background: #10b981;
-}
-
-.dot.offline {
-  background: #ef4444;
-  animation: none;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* ===== Card ===== */
-.card {
+.login-box {
   background: white;
+  padding: 30px;
   border-radius: 16px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.card h2 {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
-  color: #4a5568;
-}
+.login-box h2 { text-align: center; color: #4a5568; margin-bottom: 10px; }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.card-header h2 {
-  margin-bottom: 0;
-}
-
-/* ===== Form ===== */
-.form {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 15px;
-  align-items: end;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #718096;
-}
-
-.form-group input {
+.input-field {
+  width: 100%;
   padding: 12px 15px;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
   font-size: 1rem;
-  transition: all 0.2s;
   outline: none;
+  transition: all 0.2s;
+  background: white;
 }
 
-.form-group input:focus {
+.input-field:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
-/* ===== Button ===== */
-.btn {
-  padding: 12px 22px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: #edf2f7;
-  color: #4a5568;
-}
-
-.btn-secondary:hover {
-  background: #e2e8f0;
-}
-
-.btn-edit {
-  background: #fef3c7;
-  color: #92400e;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-}
-
-.btn-edit:hover {
-  background: #fde68a;
-}
-
-.btn-delete {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-}
-
-.btn-delete:hover {
-  background: #fecaca;
-}
-
-/* ===== User List ===== */
-.user-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.user-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border-left: 4px solid #667eea;
-  transition: all 0.2s;
-  animation: slideIn 0.3s ease;
-}
-
-.user-item:hover {
-  background: #edf2f7;
-  transform: translateX(4px);
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  flex: 1;
-}
-
-.avatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-details strong {
-  color: #2d3748;
-  font-size: 1rem;
-}
-
-.user-details span {
-  color: #718096;
-  font-size: 0.85rem;
-}
-
-.user-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.loading,
-.empty {
-  text-align: center;
-  padding: 40px;
-  color: #a0aec0;
-  font-style: italic;
-}
-
-/* ===== Toast ===== */
-.toast {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  padding: 15px 25px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 600;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s;
-  pointer-events: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.toast.success {
-  background: #10b981;
-}
-
-.toast.error {
-  background: #ef4444;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 640px) {
-  .form {
-    grid-template-columns: 1fr;
-  }
-
-  .header h1 {
-    font-size: 1.5rem;
-  }
-
-  .user-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .user-actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-}
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
