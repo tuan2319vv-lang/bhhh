@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3000/api';
+// ⚠️ QUAN TRỌNG: Hãy thay link dưới đây bằng link Render của bạn (nhớ giữ lại chữ /api ở cuối)
+const API_URL = 'https://bhhh-xxxx.onrender.com/api'; 
 
 // ===== Lấy các element =====
 const userForm = document.getElementById('userForm');
@@ -20,11 +21,13 @@ async function checkHealth() {
   try {
     const res = await fetch(`${API_URL}/health`);
     if (res.ok) {
-      statusDot.classList.add('online');
+      statusDot.className = 'dot online';
       statusText.textContent = 'Online';
+    } else {
+      throw new Error();
     }
   } catch {
-    statusDot.classList.add('offline');
+    statusDot.className = 'dot offline';
     statusText.textContent = 'Offline';
   }
 }
@@ -51,7 +54,7 @@ async function loadUsers() {
           </div>
         </div>
         <div class="user-actions">
-          <button class="btn btn-edit" onclick="editUser(${user.id})">✏️ Sửa</button>
+          <button class="btn btn-edit" onclick="editUser(${user.id}, '${user.name}', '${user.email}')">✏️ Sửa</button>
           <button class="btn btn-delete" onclick="deleteUser(${user.id})">🗑️ Xoá</button>
         </div>
       </div>
@@ -89,10 +92,10 @@ userForm.addEventListener('submit', async (e) => {
 });
 
 // ===== Sửa user =====
-async function editUser(id) {
-  const newName = prompt('Nhập tên mới:');
+async function editUser(id, oldName, oldEmail) {
+  const newName = prompt('Nhập tên mới:', oldName);
   if (!newName) return;
-  const newEmail = prompt('Nhập email mới:');
+  const newEmail = prompt('Nhập email mới:', oldEmail);
   if (!newEmail) return;
 
   try {
