@@ -1,5 +1,5 @@
 // ⚠️ QUAN TRỌNG: Hãy thay link dưới đây bằng link Render của bạn (nhớ giữ lại chữ /api ở cuối)
-const API_URL = 'https://bhhh-xxxx.onrender.com/api'; 
+const API_URL = 'https://bhhh.onrender.com/api/users'; 
 
 // ===== Lấy các element =====
 const userForm = document.getElementById('userForm');
