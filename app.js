@@ -1,5 +1,5 @@
-// ⚠️ QUAN TRỌNG: Hãy thay link dưới đây bằng link Render của bạn (nhớ giữ lại chữ /api ở cuối)
-const API_URL = 'https://bhhh.onrender.com/api/users'; 
+const API_URL = 'https://bhhh-dxxz.onrender.com/api'; // Link Render của bạn
+const API_KEY = 'LAT-TGX-DQK-TTX'; // 🔑 Phải giống y hệt bên server.js
 
 // ===== Lấy các element =====
 const userForm = document.getElementById('userForm');
@@ -8,6 +8,18 @@ const refreshBtn = document.getElementById('refreshBtn');
 const statusDot = document.querySelector('.dot');
 const statusText = document.getElementById('statusText');
 const toast = document.getElementById('toast');
+
+// ===== Hàm gọi API tự động gắn Key =====
+const fetchAPI = (endpoint, options = {}) => {
+  return fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY, // Trình duyệt tự động gửi Key lên
+      ...options.headers,
+    },
+  });
+};
 
 // ===== Hiển thị thông báo =====
 function showToast(message, type = 'success') {
@@ -19,7 +31,7 @@ function showToast(message, type = 'success') {
 // ===== Kiểm tra server =====
 async function checkHealth() {
   try {
-    const res = await fetch(`${API_URL}/health`);
+    const res = await fetch(`${API_URL}/health`); 
     if (res.ok) {
       statusDot.className = 'dot online';
       statusText.textContent = 'Online';
@@ -36,7 +48,13 @@ async function checkHealth() {
 async function loadUsers() {
   try {
     userList.innerHTML = '<p class="loading">Đang tải dữ liệu...</p>';
-    const res = await fetch(`${API_URL}/users`);
+    const res = await fetchAPI('/users'); 
+    
+    if (res.status === 403) {
+      userList.innerHTML = '<p class="empty">❌ Sai API Key! Không có quyền xem.</p>';
+      return;
+    }
+
     const users = await res.json();
 
     if (users.length === 0) {
@@ -72,9 +90,8 @@ userForm.addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value.trim();
 
   try {
-    const res = await fetch(`${API_URL}/users`, {
+    const res = await fetchAPI('/users', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email }),
     });
 
@@ -82,6 +99,8 @@ userForm.addEventListener('submit', async (e) => {
       showToast('✅ Thêm user thành công!');
       userForm.reset();
       loadUsers();
+    } else if (res.status === 403) {
+      showToast('Sai API Key!', 'error');
     } else {
       const data = await res.json();
       showToast(data.error || 'Lỗi khi thêm', 'error');
@@ -99,9 +118,8 @@ async function editUser(id, oldName, oldEmail) {
   if (!newEmail) return;
 
   try {
-    const res = await fetch(`${API_URL}/users/${id}`, {
+    const res = await fetchAPI(`/users/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newName, email: newEmail }),
     });
 
@@ -121,7 +139,7 @@ async function deleteUser(id) {
   if (!confirm('Bạn có chắc muốn xoá user này?')) return;
 
   try {
-    const res = await fetch(`${API_URL}/users/${id}`, { method: 'DELETE' });
+    const res = await fetchAPI(`/users/${id}`, { method: 'DELETE' });
     if (res.ok) {
       showToast('🗑️ Đã xoá user!');
       loadUsers();
